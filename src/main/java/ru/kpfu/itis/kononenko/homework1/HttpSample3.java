@@ -12,6 +12,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+/*
+Усовершенствованный клиент-сервер
+ */
 public class HttpSample3 implements HttpSample {
 
 
