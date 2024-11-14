@@ -5,8 +5,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +18,10 @@ import java.util.stream.Collectors;
 
 @WebServlet(name = "Servlets", urlPatterns = "/posts")
 public class Servlets extends HttpServlet {
+
+
+    private static final Logger LOG =
+            LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final List<JSONObject> users = new ArrayList<>();
 
@@ -27,6 +35,7 @@ public class Servlets extends HttpServlet {
             writer.println(user.toString());
         }
         writer.flush();
+        LOG.info("Output all users");
     }
 
     @Override
@@ -38,6 +47,8 @@ public class Servlets extends HttpServlet {
         users.add(newUser);
         writer.print("Новый пользователь добавлен: "+ newUser);
         writer.flush();
+        LOG.info("New user add");
+
     }
 
     @Override
@@ -49,6 +60,7 @@ public class Servlets extends HttpServlet {
         int id = newUser.getInt("id");
         users.remove(getUserById(id));
         writer.print("Пользователь "+ newUser + " удален");
+        LOG.info("User was delete");
     }
 
     @Override
@@ -62,6 +74,7 @@ public class Servlets extends HttpServlet {
         users.add(user);
         writer.print("Пользователь с Id = " + id + " успешно обновлен: " + user);
         writer.flush();
+        LOG.info("User was update");
     }
 
     private JSONObject getNewUser(String body) {
