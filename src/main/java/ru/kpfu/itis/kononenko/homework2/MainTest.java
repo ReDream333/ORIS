@@ -63,5 +63,19 @@ public class MainTest {
 
         h.get("http://api.openweathermap.org/data/2.5//weather?q=London&appid=PMAK-67406aef508cb400019e31da-209b5905b3a2bfcb781e07a1c9afe42565", headers, params);
 
+
+//        FROM maven:3.9.9-openjdk-17 as build
+//
+//        COPY src /home/app/src
+//        COPY pom.xml home/app
+//        RUN mvn -f /home/app/pom.xml clean package
+//
+//        FROM tomcat:10.1.29
+//
+//        WORKDIR /usr/local/tomcat
+//        COPY target/ORIS-1.0-SNAPSHOT.war webapps/ROOT.war
+//        EXPOSE 8080
+//        CMD ["catalina.sh", "run"]
+
     }
 }
