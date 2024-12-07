@@ -1,15 +1,16 @@
 package ru.kpfu.itis.kononenko.dto;
 
-public class UserDto {
-
+public class UserRegistrationDto {
     private String name;
     private Integer lastname;
     private String login;
+    private String password;
 
-    public UserDto(String name, Integer lastname, String login) {
+    public UserRegistrationDto(String name, Integer lastname, String login, String password) {
         this.name = name;
         this.lastname = lastname;
         this.login = login;
+        this.password = password;
     }
 
     public String getName() {
@@ -22,5 +23,9 @@ public class UserDto {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

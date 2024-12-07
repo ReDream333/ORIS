@@ -6,23 +6,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.kpfu.itis.kononenko.dto.UserDto;
+import ru.kpfu.itis.kononenko.service.UserService;
+import ru.kpfu.itis.kononenko.service.impl.UserServiceImpl;
 
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @WebServlet(name = "usersServlet", urlPatterns = "/users")
 public class UsersServlet extends HttpServlet {
-    private static final Logger LOG =
-            LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+    private final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", List.of(new UserDto("Ivan", 100, "Ivan228")));
+        String login = req.getParameter("login");
+        if (login != null) {
+            req.setAttribute("users", List.of(userService.getByLogin(login)));
+        } else {
+            req.setAttribute("users", userService.getAll());
+        }
         req.getRequestDispatcher("users.ftl").forward(req, resp);
-        LOG.info("Redirect user to users.ftl");
     }
 }
